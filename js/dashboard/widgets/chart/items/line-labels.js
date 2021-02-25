@@ -39,7 +39,7 @@ module.exports = class LineLabels {
 
                     wrapper.append('xhtml:div')
                             .class('name')
-                            .html('TEMP')
+                            .html(d => d.type)
 
                     wrapper.append('xhtml:div')
                             .class('qty')
@@ -57,7 +57,7 @@ module.exports = class LineLabels {
 
                     let wrapper = g.select('.line-label')
 
-                    g.select('qty')
+                    g.select('.qty')
                             .html(d => +d.qty)
 
                     g.attr('data-side', d => d.side)
