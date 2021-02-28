@@ -12,8 +12,9 @@ module.exports = class LineLabels {
     wrapper
     eventListeners = {}
 
-    constructor (chart) {
+    constructor (chart, type) {
         this.chart = chart
+        this.type = type;
     }
 
     appendTo (container, className) {
@@ -35,15 +36,11 @@ module.exports = class LineLabels {
                             .attr('y', d => this.yScale(d.value) - 10)
                             .style('overflow', 'visible')
                     let wrapper = foreign.append('xhtml:div')
-                            .class('line-label')
+                            .class('line-label type-' + this.type);
 
                     wrapper.append('xhtml:div')
-                            .class('name')
-                            .html('TEMP')
-
-                    wrapper.append('xhtml:div')
-                            .class('qty')
-                            .html(d => +d.qty)
+                            .class('name qty')
+                            .html(d => this.type === 'alert' ? 'Alert' : 'TEMP ' + d.qty)
 
                     g.attr('data-side', d => d.side)
 

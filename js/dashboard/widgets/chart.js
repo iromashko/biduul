@@ -37,6 +37,7 @@ module.exports = class Chart {
             breakEvenLine: [],
             orderLines: [],
             draftLines: [],
+            alertLines: [],
         }
 
         this._load()
@@ -93,14 +94,16 @@ module.exports = class Chart {
         this.priceLine = new Lines(this)
         this.bidAskLines = new Lines(this)
         this.draftLines = new Lines(this)
+        this.alertLines = new Lines(this)
         this.orderLines = new Lines(this)
         this.positionLine = new Lines(this)
         this.liquidationLine = new Lines(this)
         this.breakEvenLine = new Lines(this)
 
-        this.positionLabel = new LineLabels(this)
-        this.orderLabels = new LineLabels(this)
-        this.draftLabels = new LineLabels(this)
+        this.positionLabel = new LineLabels(this, 'position')
+        this.orderLabels = new LineLabels(this, 'order')
+        this.draftLabels = new LineLabels(this, 'draft')
+        this.alertLabels = new LineLabels(this, 'alert')
 
         this.plot = new Plot(this.scales)
 
@@ -135,10 +138,12 @@ module.exports = class Chart {
 
         this.orderLines.appendTo(this.svg, 'order-lines')
         this.draftLines.appendTo(this.svg, 'draft-lines')
+        this.alertLines.appendTo(this.svg, 'alert-lines')
 
         this.positionLabel.appendTo(this.svg, 'position-label')
         this.orderLabels.appendTo(this.svg, 'order-labels')
         this.draftLabels.appendTo(this.svg, 'draft-labels')
+        this.alertLabels.appendTo(this.svg, 'alert-labels')
     }
 
     _addEventListeners () {
@@ -171,10 +176,12 @@ module.exports = class Chart {
         this.liquidationLine.draw(this.data.liquidationLine)
         this.orderLines.draw(this.data.orderLines).draggable()
         this.draftLines.draw(this.data.draftLines).draggable()
+        this.alertLines.draw(this.data.alertLines).draggable()
 
         this.positionLabel.draw(this.data.positionLine)
         this.orderLabels.draw(this.data.orderLines)
         this.draftLabels.draw(this.data.draftLines)
+        this.alertLabels.draw(this.data.alertLines)
 
         this.plot.draw(this.data.candles)
 
@@ -189,6 +196,8 @@ module.exports = class Chart {
             .attr('data-side', d => d.side)
         this.draftLines.wrapper.selectAll('.draft-lines > g')
             .attr('data-side', d => d.side)
+        this.alertLines.wrapper.selectAll('.alert-lines > g')
+            .attr('data-side', d => d.side)
     }
 
     resize () {
@@ -202,6 +211,7 @@ module.exports = class Chart {
         this.priceLine.resize()
         this.bidAskLines.resize()
         this.draftLines.resize()
+        this.alertLines.resize()
         this.orderLines.resize()
         this.breakEvenLine.resize()
         this.positionLine.resize()

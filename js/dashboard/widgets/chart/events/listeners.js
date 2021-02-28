@@ -8,6 +8,7 @@ or (at your option) any later version. See <https://www.gnu.org/licenses/>. */
 const api = require('../../../../apis/futures')
 const DataUpdateHandlers = require('./handlers/data-updates')
 const DrafOrderHandlers = require('./handlers/draft-order')
+const AlertOrderHandlers = require('./handlers/alert-order')
 const OtherHandlers = require('./handlers/other')
 
 module.exports = class Listeners {
@@ -16,6 +17,7 @@ module.exports = class Listeners {
         this.chart = chart
         this.dataUpdates = new DataUpdateHandlers(chart)
         this.draftHandlers = new DrafOrderHandlers(chart)
+        this.alertHandlers = new AlertOrderHandlers(chart)
         this.other = new OtherHandlers(chart)
     }
 
@@ -23,6 +25,7 @@ module.exports = class Listeners {
 
         events.on('api.candlesUpdate', this.updateCandles)
         events.on('api.lastCandleUpdate', this.updateLastCandle)
+        events.on('api.lastCandleUpdate', this.checkAlerts)
         events.on('api.priceUpdate', this.updatePrice)
         events.on('api.bidAskUpdate', this.updateBidAsk)
         events.on('trading.qtyUpdate', this.updateDraft)
@@ -32,9 +35,11 @@ module.exports = class Listeners {
         events.on('liquidation.update', this.updateLiquidation)
 
         this.chart.draftLines.on('drag', this.onDragDraft)
+        this.chart.alertLines.on('drag', this.onDragAlert)
         this.chart.orderLines.on('drag', this.onDragOrder)
-                             .on('dragend', this.onDragOrderEnd)
+            .on('dragend', this.onDragOrderEnd)
         this.chart.draftLabels.on('click', (d, i) => this.draftToOrder(d, i))
+        this.chart.alertLabels.on('click', (d, i) => this.cancelAlert(i))
         this.chart.orderLabels.on('click', d => api.cancelOrder(d.id))
 
         // Measure tool
@@ -49,6 +54,12 @@ module.exports = class Listeners {
         this.chart.svg
             .on('dblclick', (d, i, nodes) => {
                 this.placeOrderDraft(nodes[i])
+        })
+
+        // Place order on double click
+        this.chart.svg
+            .on('contextmenu', (d, i, nodes) => {
+                this.placeOrderAlert(nodes[i])
         })
 
         // Chart resize
@@ -80,7 +91,11 @@ module.exports = class Listeners {
 
     // Order draft callbacks
     placeOrderDraft = (...args) => this.draftHandlers.placeOrderDraft(...args)
+    placeOrderAlert = (...args) => this.alertHandlers.placeOrderAlert(...args)
     onDragDraft = (...args) => this.draftHandlers.onDragDraft(...args)
+    onDragAlert = (...args) => this.alertHandlers.onDragAlert(...args)
+    cancelAlert = (...args) => this.alertHandlers.cancelAlert(...args)
+    checkAlerts = (...args) => this.alertHandlers.checkAlerts(...args)
     draftToOrder = (...args) => this.draftHandlers.draftToOrder(...args)
 
     // Other callbacks

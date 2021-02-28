@@ -224,6 +224,30 @@ svg text {
 .draft-labels [data-side='sell'] rect {
     stroke: #7d37e4;
 }
+
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+/*   Alert lines
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+.line-label.type-alert {
+    background-color: #885b20;
+}
+.alert-lines .scope-supstance.mouseover path {
+    cursor: grab;
+}
+.alert-lines .supstance path {
+    stroke-dasharray: 10 6;
+}
+.alert-lines path {
+    fill: #885b20;
+    stroke: #885b20;
+}
+.alert-lines [data-side='sell'] path {
+    fill: #885b20;
+    stroke: #885b20;
+}
+.alert-labels [data-side='sell'] rect {
+    stroke: #885b20;
+}
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 /*   Crosshair
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

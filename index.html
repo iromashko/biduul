@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="css/dashboard/trades.css">
     <script>
       window.addEventListener('DOMContentLoaded', () => {
+          const { webFrame } = require('electron'); 
+          webFrame.setZoomFactor(1);
+
           require('./js/dashboard')
         }
       )
