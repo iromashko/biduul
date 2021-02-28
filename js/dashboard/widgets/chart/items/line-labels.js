@@ -26,6 +26,7 @@ module.exports = class LineLabels {
     draw (data) {
         this._getDimensions()
 
+        console.log('data', data)
         this.wrapper.selectAll('g')
             .data(data)
             .join(
@@ -36,11 +37,15 @@ module.exports = class LineLabels {
                             .attr('y', d => this.yScale(d.value) - 10)
                             .style('overflow', 'visible')
                     let wrapper = foreign.append('xhtml:div')
-                            .class('line-label type-' + this.type);
+                            .class('line-label');
 
                     wrapper.append('xhtml:div')
-                            .class('name qty')
-                            .html(d => this.type === 'alert' ? 'Alert' : 'TEMP ' + d.qty)
+                            .class('name')
+                            .html(d => d.type)
+
+                    wrapper.append('xhtml:div')
+                            .class('qty')
+                            .html(d => this.type === 'alert' ? 'Alert' : d.qty)
 
                     g.attr('data-side', d => d.side)
 
@@ -54,8 +59,8 @@ module.exports = class LineLabels {
 
                     let wrapper = g.select('.line-label')
 
-                    g.select('qty')
-                            .html(d => +d.qty)
+                    g.select('.qty')
+                            .html(d => this.type === 'alert' ? 'Alert' : d.qty)
 
                     g.attr('data-side', d => d.side)
 

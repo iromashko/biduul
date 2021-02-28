@@ -123,14 +123,18 @@ svg text {
     fill: #30b332;
     stroke: #30b332;
 }
-.position-label rect {
-    fill: #30b332;
-    stroke: #30b332;
-    stroke-width: 2;
-    width: 70px;
+.position-label .line-label {
+    background-color: #30b332;
+    border: 2px solid #30b332;
+    border-radius: 5px;
+    box-sizing: content-box;
+    min-width: 70px;
     height: 19px;
-    rx: 6px;
-    ry: 6px;
+}
+.position-label .line-label div {
+    display: inline-block;
+    height: 19px;
+    padding: 4px 3px;
 }
 .position-line text,
 .position-label text {
@@ -180,18 +184,20 @@ svg text {
     fill: #20884c;
     stroke: #20884c;
 }
-.line-label  {
+.order-lines [data-side='sell'] path {
+    stroke: #6d28d2;
+}
+.order-labels .line-label  {
     background-color: #20884c;
     border-radius: 5px;
     min-width: 70px;
     height: 19px;
 }
-.line-label div {
+.order-labels .line-label div {
     display: inline-block;
     height: 19px;
-    padding: 4px 2px;
+    padding: 4px 3px;
 }
-.order-lines [data-side='sell'] path,
 .order-labels [data-side='sell'] .line-label {
     background-color: #6d28d2;
 }
@@ -208,29 +214,31 @@ svg text {
     fill: #20884c;
     stroke: #20884c;
 }
-.draft-labels rect {
-    fill: #191919;
-    stroke: #20884c;
-    stroke-width: 2;
+.draft-labels .line-label {
+    background-color: #191919;
+    border: 2px solid #20884c;
+    border-radius: 5px;
+    box-sizing: content-box;
     width: 70px;
     height: 19px;
-    rx: 6px;
-    ry: 6px;
+}
+.draft-labels .line-label div {
+    display: inline-block;
+    height: 19px;
+    padding: 4px 3px;
 }
 .draft-lines [data-side='sell'] path {
     fill: #7d37e4;
     stroke: #7d37e4;
 }
-.draft-labels [data-side='sell'] rect {
-    stroke: #7d37e4;
+.draft-labels [data-side='sell'] .line-label {
+    border-color: #6d28d2;
 }
 
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 /*   Alert lines
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-.line-label.type-alert {
-    background-color: #885b20;
-}
+
 .alert-lines .scope-supstance.mouseover path {
     cursor: grab;
 }
@@ -240,6 +248,20 @@ svg text {
 .alert-lines path {
     fill: #885b20;
     stroke: #885b20;
+}
+.alert-labels .line-label {
+    background-color: #191919;
+    border: 2px solid #885b20;
+    border-radius: 5px;
+    box-sizing: content-box;
+    width: 70px;
+    height: 19px;
+}
+.alert-labels .line-label div {
+    display: inline-block;
+    vertical-align: top;
+    height: 19px;
+    padding: 4px 3px;
 }
 .alert-lines [data-side='sell'] path {
     fill: #885b20;

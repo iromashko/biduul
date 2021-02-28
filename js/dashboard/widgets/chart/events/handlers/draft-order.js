@@ -6,7 +6,9 @@ or (at your option) any later version. See <https://www.gnu.org/licenses/>. */
 
 'use strict'
 const api = require('../../../../../apis/futures')
+const trading = require('../../../trading')
 const {OrderLimit} = require('../../../trading/order-limit')
+
 
 module.exports = class DraftOrderHandlers {
 
@@ -21,13 +23,14 @@ module.exports = class DraftOrderHandlers {
         let price = this.chart.scales.y.invert( d3.mouse(node)[1] )
         price = +(price.toFixed(this.chart.yPrecision))
 
+        let type = trading.order.orderType
         let lastPrice = (api.lastPrice)
                 ? api.lastPrice
                 : this.candles.last.close
         let side = (price <= lastPrice) ? 'buy' : 'sell'
         let qty = d3.select('#' + side + '-qty').property('value')
 
-        let data = { value: price, qty: Number(qty), side: side }
+        let data = { type: type, value: price, qty: Number(qty), side: side }
         this.draftLinesData[0] = data
 
         this.onDragDraft(data) // Wobbly coding <(°v°)<
@@ -43,7 +46,7 @@ module.exports = class DraftOrderHandlers {
 
         events.emit('chart.draftOrderMoved', d.side, price, qty)
 
-        // Redraw
+        // Redraw labels
         this.draftLabels.draw(this.draftLinesData)
     }
 
