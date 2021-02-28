@@ -246,12 +246,12 @@ svg text {
     stroke-dasharray: 10 6;
 }
 .alert-lines path {
-    fill: #885b20;
-    stroke: #885b20;
+    fill: #828282;
+    stroke: #828282;
 }
 .alert-labels .line-label {
     background-color: #191919;
-    border: 2px solid #885b20;
+    border: 2px solid #828282;
     border-radius: 5px;
     box-sizing: content-box;
     width: 70px;
@@ -264,11 +264,11 @@ svg text {
     padding: 4px 3px;
 }
 .alert-lines [data-side='sell'] path {
-    fill: #885b20;
-    stroke: #885b20;
+    fill: #828282;
+    stroke: #828282;
 }
 .alert-labels [data-side='sell'] rect {
-    stroke: #885b20;
+    stroke: #828282;
 }
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 /*   Crosshair

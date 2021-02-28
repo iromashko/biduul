@@ -26,7 +26,6 @@ module.exports = class LineLabels {
     draw (data) {
         this._getDimensions()
 
-        console.log('data', data)
         this.wrapper.selectAll('g')
             .data(data)
             .join(
