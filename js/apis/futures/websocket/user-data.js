@@ -106,6 +106,15 @@ module.exports = class UserData {
             type: o.o,
             updateTime: data.E
         }
+
+        if(order.status === 'PARTIALLY_FILLED') {
+            cache.openOrders.forEach((o) => {
+                if(o.id === order.id) {
+                    Object.assign(o, order);
+                }
+            });
+        }
+
         // New limit order
         if (order.status == 'NEW' && order.type == 'LIMIT') {
             cache.openOrders.push(order)
