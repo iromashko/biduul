@@ -94,7 +94,8 @@ module.exports = class UserData {
             filledQty: o.z,
             price: o.p,
             value: o.p, // Alias, for feeding to techan.supstance
-            qty: o.q,
+            qty: o.q - o.z,
+            origQty: o.q,
             baseValue: o.q * o.p,
             reduceOnly: o.R,
             side: o.S.toLowerCase(),

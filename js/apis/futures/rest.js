@@ -92,7 +92,8 @@ module.exports = class Rest {
                     filledQty: o.executedQty,
                     price: o.price,
                     value: o.price, // synonym, for techan.substance
-                    qty: o.origQty,
+                    qty: o.origQty - o.executedQty,
+                    origQty: o.origQty,
                     reduceOnly: o.reduceOnly,
                     side: o.side.toLowerCase(),
                     status: o.status,
