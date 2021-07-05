@@ -40,7 +40,7 @@ module.exports = class LineLabels {
 
                     wrapper.append('xhtml:div')
                             .class('name')
-                            .html(d => d.type)
+                            // .html(d => d.type)
 
                     wrapper.append('xhtml:div')
                             .class('qty')

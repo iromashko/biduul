@@ -65,11 +65,11 @@ class OrderLimit extends Order {
                 ? api.lib.futuresBuy
                 : api.lib.futuresSell
 
-        order(SYMBOL, qty, price, {
+        OUT(order(SYMBOL, qty, price, {
                 'timeInForce': (data.postOnly) ? 'GTX' : 'GTC',
                 'reduceOnly': data.reduceOnly.toString()
             })
-            .catch(error => console.error(error))
+            .catch(error => console.error(error)))
     }
 }
 

@@ -12,6 +12,7 @@ const { truncateDecimals } = require('../../snippets')
 
 events.on('api.balancesUpdate', updateWallet)
 events.on('api.priceUpdate', updateWallet)
+setInterval(api.getPosition, 1000)
 setInterval(api.getAccount, 2000)
 
 let accountData
@@ -24,7 +25,7 @@ async function updateWallet (data) {
 
     if(!data) return
 
-    let format = value => nFormat(',.2f', truncateDecimals(value, 2))
+    let format = (value, str = ',.2f') => nFormat(str, truncateDecimals(value, 2))
 
     let pnl = stats.getPnl()
     let pnlPercent = nFormat(',.1%', pnl.percent)
@@ -45,10 +46,11 @@ async function updateWallet (data) {
 
     data = [
         'Balance: ', format(balance),
-        'Equity: ', format(unrealizedBalance),
+        'Equity: ', format(api.account.totalMarginBalance),
+        'Available', format(api.account.availableBalance),
         'Unrealized PNL: ', format(pnl.value) + ' (' + pnlPercent + ')',
         'Daily PNL: ', format(dailyPnl.value) + ' (' + dailyPnlPercent + ')',
-        'Daily break-even: ', format(dailyBreakEven),
+        'Daily break-even: ', format(dailyBreakEven, ',.4f'),
         'Position margin: ', format(positionMargin) + ' (' + posMarginPercent + ')',
         'Order margin: ', format(orderMargin) + ' (' + orderMarginPercent + ')',
     ]

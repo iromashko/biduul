@@ -122,7 +122,8 @@ module.exports = class Rest {
                     qty: +p.positionAmt,
                     baseValue: p.positionAmt * p.entryPrice,
                     side: (p.positionAmt >= 0) ? 'buy' : 'sell',
-                    symbol: p.symbol
+                    symbol: p.symbol,
+                    pnl: +p.unRealizedProfit
                 } })
                 cache.positions = positions
                 cache.position = positions .filter(x => x.symbol === SYMBOL)[0]

@@ -34,8 +34,8 @@ api.streamLastCandle(config.get('chart.interval'))
 api.streamLastTrade()
 api.streamUserData()
 api.streamBidAsk()
-api.streamBook()
-book.updateBook()
+// api.streamBook()
+// book.updateBook()
 
 // Inject custom CSS
 for (let url of settings.customCss) {

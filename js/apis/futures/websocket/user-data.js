@@ -58,7 +58,7 @@ module.exports = class UserData {
             cache.account.balance = data.a.B[0].wb
             events.emit('api.balancesUpdate', cache.account)
             // Get full data from Rest Api
-            this.rest.getAccount()
+            // this.rest.getAccount()
         }
     }
 
@@ -81,7 +81,7 @@ module.exports = class UserData {
                 symbol: p.s
             })
         })
-        this.rest.getPosition() // REST update for missing data
+        // this.rest.getPosition() // REST update for missing data
 
         events.emit('api.positionUpdate', cache.positions)
     }
