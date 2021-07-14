@@ -47,7 +47,16 @@ module.exports = class Chart {
         // Wait for symbol info from the API then proceed with loading.
         events.once('api.exchangeInfoUpdate', d => {
             this.symbolInfo = d.symbols.filter(x => x.symbol === SYMBOL)[0]
-            this.yPrecision = this.symbolInfo.pricePrecision
+            this.yPrecision = decimalPlaces(this.symbolInfo.filters[0].tickSize)
+            function decimalPlaces(n) {
+                var s = "" + (+n);
+                var match = /(?:\.(\d+))?(?:[eE]([+\-]?\d+))?$/.exec(s)
+                if (!match) { return 0 }
+                return Math.max(
+                    0,
+                    (match[1] == '0' ? 0 : (match[1] || '').length)
+                    - (match[2] || 0))
+              }
             this._proceedLoading()
         })
         api.getExchangeInfo()
