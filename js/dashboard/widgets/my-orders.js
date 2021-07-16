@@ -43,6 +43,7 @@ function updatePositions (positions) {
 
                 row.class(d => d.side)
 
+                let marginPercent = d => formatPercent(d.margin / api.account.balance)
                 // let pnl = getPnl()
                 // let pnlValue = format(pnl.value)
                 // let pnlPercent = formatPercent(pnl.percent)
@@ -53,7 +54,7 @@ function updatePositions (positions) {
                 td().text(d => d.qty)
                 td().text(d => format(d.price))
                 td().text(d => format(d.liquidation))
-                td().text(d => format(d.margin))
+                td().text(d => format(d.margin) + ` (${ marginPercent(d) })`)
                 td().text(d => trueLeverage(d) + 'x')
                 td().text(d => format(d.pnl) + ` (${ pnlPercent(d) })`)
                 td().append('button')
@@ -66,6 +67,7 @@ function updatePositions (positions) {
 
                 row.class(d => d.side)
 
+                let marginPercent = d => formatPercent(d.margin / api.account.balance)
                 // let pnl = getPnl()
                 // let pnlValue = format(pnl.value)
                 // let pnlPercent = formatPercent(pnl.percent)
@@ -76,7 +78,7 @@ function updatePositions (positions) {
                 td(2).text(d => d.qty)
                 td(3).text(d => format(d.price))
                 td(4).text(d => format(d.liquidation))
-                td(5).text(d => format(d.margin))
+                td(5).text(d => format(d.margin) + ` (${ marginPercent(d) })`)
                 td(6).text(d => trueLeverage(d) + 'x')
                 td(7).text(d => format(d.pnl) + ` (${ pnlPercent(d) })`)
                 row.select('button')
